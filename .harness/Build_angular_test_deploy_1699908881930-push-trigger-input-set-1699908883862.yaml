@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_angular_test_deploy_1699908881930-push-trigger-input-set
+  identifier: Build_angular_test_deploy_1699908881930pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_angular_test_deploy_1699908881930
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
