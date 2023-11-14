@@ -2,9 +2,7 @@ pipeline {
   agent {
     docker {
       image 'node'
-      args '''FROM node as build-step
-
-RUN mkdir -p /app
+      args '''RUN mkdir -p /app
 
 WORKDIR /app
 
