@@ -1,12 +1,12 @@
 pipeline {
   agent {
-    dockerfile {
-      filename 'Dockerfile'
+    node {
+      label 'npm start'
     }
 
   }
   stages {
-    stage('') {
+    stage('error') {
       steps {
         echo 'CORRECT'
       }
