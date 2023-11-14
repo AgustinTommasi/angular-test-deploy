@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       args 'npm install'
-      image 'node'
+      image 'node:latest'
     }
 
   }
