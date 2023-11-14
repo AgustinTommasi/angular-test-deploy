@@ -1,33 +1,15 @@
 pipeline {
-  agent {
-    docker {
-      image 'node'
-      args '''RUN mkdir -p /app
-
-WORKDIR /app
-
-COPY package.json .
-
-RUN npm install
-
-COPY . .
-
-RUN npm run build --prod'''
+    agent {
+        docker {
+            image 'node:20.9.0-alpine3.18' 
+            args '-p 3000:3000' 
+        }
     }
-
-  }
-  stages {
-    stage('Stage 1') {
-      steps {
-        echo 'Running... SystemArt'
-      }
+    stages {
+        stage('Build') { 
+            steps {
+                sh 'npm start' 
+            }
+        }
     }
-
-    stage('Stage 2 ') {
-      steps {
-        echo 'Running... SystemArt v2'
-      }
-    }
-
-  }
 }
