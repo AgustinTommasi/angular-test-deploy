@@ -1,21 +1,11 @@
 pipeline {
   agent any
   stages {
-    stage('Build Docker Image') {
+    stage('') {
       steps {
-        script {
-          docker.build(DOCKER_IMAGE, '-f Dockerfile .')
-        }
-
-      }
-    }
-
-    stage('Deploy Docker Container') {
-      steps {
-        script {
-          docker.image(DOCKER_IMAGE).inside('-d --name $CONTAINER_NAME -p 10123:80')
-        }
-
+        sh '''docker build -t agustintommasi-angular.test .
+docker run --restart always -p:10123:80 -d --name angular.test agustintommasi-angular.test
+'''
       }
     }
 
