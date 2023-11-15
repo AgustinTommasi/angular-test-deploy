@@ -1,8 +1,7 @@
 pipeline {
   agent {
-    docker {
-      args 'npm install'
-      image 'node:latest'
+    dockerfile {
+      filename 'Dockerfile'
     }
 
   }
