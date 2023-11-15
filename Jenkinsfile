@@ -1,8 +1,16 @@
-    agent any
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
+pipeline {
+  agent any
+  stages {
+    stage('Stage 1') {
+      steps {
+        echo 'Running... SystemArt'
+      }
+    }
 
-        checkout scm
+    stage('Stage 2 ') {
+      steps {
+        echo 'Running... SystemArt v2'
+      }
     }
 
     stage('Build image') {
@@ -37,3 +45,6 @@
           appImage.push()
       }
     }
+
+  }
+}
