@@ -17,7 +17,7 @@ pipeline {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        appImage = docker.build("agustintommasi/test-app")
+        appImage = docker.build("-t agustintommasi/test-app -f Dockerfile .")
     }
 
     stage('Run container') {
