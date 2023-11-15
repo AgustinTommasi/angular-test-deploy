@@ -1,8 +1,7 @@
 version: '3.8'
 services:
-  server:
+  web:
     build:
-      dockerfile: Dockerfile
       context: .
     ports:
       - "10123:80"
