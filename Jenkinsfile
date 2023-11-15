@@ -17,17 +17,21 @@ pipeline {
       steps {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
+                    script{
 
         appImage = docker.build("-t agustintommasi/test-app -f Dockerfile .")
-      }
     }
+      }
 
     stage('Run container') {
       steps {
         /* This run the  image; synonymous to
          * docker build on the command line */
+                    script{
 
         app = appImage.run(" -p 10123:80")
+
+    }
     }
     }
 
@@ -35,9 +39,11 @@ pipeline {
       steps {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
+                    script{
 
         app.inside {
             sh 'echo "Tests passed"'
+        }
         }
     }
     }
@@ -48,8 +54,10 @@ pipeline {
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
+                    script{
       docker.withRegistry('https://localhost:5000') {
           appImage.push()
+      }
       }
       }
     }
