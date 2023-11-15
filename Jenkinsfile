@@ -1,11 +1,14 @@
 pipeline {
-  agent any
+  agent {
+    dockerfile {
+      filename 'Dockerfile'
+    }
+
+  }
   stages {
-    stage('') {
+    stage('error') {
       steps {
-        sh '''docker build -t agustintommasi-angular.test .
-docker run --restart always -p:10123:80 -d --name angular.test agustintommasi-angular.test
-'''
+        sh 'echo "HOLA"'
       }
     }
 
