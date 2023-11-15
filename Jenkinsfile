@@ -12,5 +12,12 @@ pipeline {
         echo 'Running... SystemArt v2'
       }
     }
+
+    stage('3r') {
+      steps {
+        echo '3r'
+      }
+    }
+
   }
 }
