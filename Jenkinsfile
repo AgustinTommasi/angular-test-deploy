@@ -1,42 +1,39 @@
 pipeline {
+  agent {
+    dockerfile {
+      filename 'Dockerfile'
+    }
     agent any
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
 
-        checkout scm
+  }
+  stages {
+    stage('Example') {
+      steps {
+        echo 'Pass'
+      }
+    environment {
+        // Define environment variables if needed
+        CONTAINER_NAME = 'angular-test.v2'
+        DOCKER_IMAGE = 'agustintommasi-angular-test'
     }
 
-    stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
+  }
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build(DOCKER_IMAGE, '-f Dockerfile .')
+                }
+            }
+        }
 
-        appImage = docker.build("agustintommasi/test-app")
-    }
-
-    stage('Run container') {
-        /* This run the  image; synonymous to
-         * docker build on the command line */
-
-        app = appImage.run(" -p 10123:80")
-    }
-
-    stage('Test image') {
-        /* Ideally, we would run a test framework against our image.
-         * For this example, we're using a Volkswagen-type approach ;-) */
-
-        app.inside {
-            sh 'echo "Tests passed"'
+        stage('Deploy Docker Container') {
+            steps {
+                script {
+                    // Run the Docker container
+                    docker.image(DOCKER_IMAGE).withRun('-d --name $CONTAINER_NAME -p 10123:80')
+                }
+            }
         }
     }
-
-    stage('Push image') {
-        /* Finally, we'll push the image with two tags:
-         * First, the incremental build number from Jenkins
-         * Second, the 'latest' tag.
-         * Pushing multiple tags is cheap, as all the layers are reused. */
-      docker.withRegistry('https://localhost:5000') {
-          appImage.push()
-      }
-    }
-
 }
