@@ -14,7 +14,7 @@ pipeline {
 
   }
   environment {
-    CONTAINER_NAME = 'angular-test'
+    CONTAINER_NAME = 'angular-test.v2'
     DOCKER_IMAGE = 'agustintommasi-angular-test'
   }
 }
