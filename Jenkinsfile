@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    dockerfile {
+      filename 'Dockerfile'
+    }
+
+  }
   stages {
     stage('Pre-Stage') {
       steps {
@@ -10,12 +15,6 @@ pipeline {
     stage('Full Stage') {
       steps {
         echo 'Running... SystemArt v2'
-        sh '''          
-        docker ps
-
-        docker images ls
-
-'''
       }
     }
 
