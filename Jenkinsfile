@@ -1,9 +1,27 @@
-node {
-    checkout scm
-
-    docker.withServer('tcp://docker:2375', 'swarm-certs') {
-        docker.image('mysql:5').withRun('-p 3306:3306') {
-            /* do things */
-        }
+pipeline {
+  agent any
+  agent {
+    dockerfile {
+      filename 'Dockerfile'
     }
+
+  }
+  stages {
+    stage('Pre-Stage') {
+      steps {
+        echo 'Running... SystemArt'
+      }
+    }
+    stage('Full Stage') {
+      steps {
+        echo 'Running... SystemArt v2'
+        sh 'docker build -t agustintommasi/test-app .'
+      }
+    }
+    stage('3r') {
+      steps {
+        echo '3r'
+      }
+    }
+  }
 }
