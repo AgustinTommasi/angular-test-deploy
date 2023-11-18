@@ -1,28 +1,9 @@
-pipeline {
-  agent {
-    dockerfile {
-      filename 'Dockerfile'
-    }
+node {
+    checkout scm
 
-  }
-  stages {
-    stage('Pre-Stage') {
-      steps {
-        echo 'Running... SystemArt'
-      }
-    }
+    def testImage = docker.build("my-image:${env.BUILD_ID}", "-f Dockerfile") 
+    testImage.push()
 
-    stage('Full Stage') {
-      steps {
-        echo 'Running... SystemArt v2'
-      }
+  
     }
-
-    stage('3r') {
-      steps {
-        echo '3r'
-      }
-    }
-
-  }
 }
