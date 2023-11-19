@@ -1,9 +1,49 @@
-node {
-    checkout scm
+pipeline {
+  agent any
+  stages {
+    stage('Stage 1') {
+      steps {
+        echo 'Running... SystemArt'
+      }
+    }
+    stage('Stage 2 ') {
+      steps {
+        echo 'Running... SystemArt v2'
+      }
+    }
+    stage('Build image') {
+      steps {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+                    script{
 
-    def testImage = docker.build("my-image:${env.BUILD_ID}", "-f Dockerfile") 
-    testImage.push()
+        appImage = docker.build("-t agustintommasi/test-app -f Dockerfile .")
+      }
+    }
+      }
 
-  
-    
-}
+    stage('Run container') {
+      steps {
+        /* This run the  image; synonymous to
+         * docker build on the command line */
+                    script{
+
+        app = appImage.run(" -p 10123:80")
+
+    }
+    }
+    }
+
+    stage('Test image') {
+      steps {
+        /* Ideally, we would run a test framework against our image.
+         * For this example, we're using a Volkswagen-type approach ;-) */
+                    script{
+
+        app.inside {
+            sh 'echo "Tests passed"'
+        }
+        }
+    }
+    }
+  }}
