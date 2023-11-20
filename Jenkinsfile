@@ -15,7 +15,7 @@ pipeline {
       steps {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-                    script{
+                    node{
 
         appImage = docker.build("-t agustintommasi/test-app -f Dockerfile .")
       }
@@ -26,7 +26,7 @@ pipeline {
       steps {
         /* This run the  image; synonymous to
          * docker build on the command line */
-                    script{
+                    node{
 
         app = appImage.run(" -p 10123:80")
 
@@ -38,7 +38,7 @@ pipeline {
       steps {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
-                    script{
+                    node{
 
         app.inside {
             sh 'echo "Tests passed"'
