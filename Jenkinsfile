@@ -11,12 +11,5 @@ pipeline {
         echo 'Running... SystemArt v2'
       }
     }
-    stage('Build image') {
-      steps {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-    }
-      }
-
     }
   }
