@@ -3,10 +3,7 @@ pipeline {
   stages {
     stage('Build image') {
       steps {
-        script {
-          appImage = docker.build("-t agustintommasi-test-app .")
-        }
-
+        sh 'docker.build("-t agustintommasi-test-app .")'
       }
     }
 
