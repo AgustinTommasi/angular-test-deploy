@@ -15,7 +15,6 @@ pipeline {
       steps {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-        docker.build("-t agustintommasi/test-app -f Dockerfile .")
     }
       }
 
