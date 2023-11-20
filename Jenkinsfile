@@ -1,17 +1,10 @@
 pipeline {
-  agent {
-    dockerfile {
-      filename 'Dockerfile'
-    }
-
-  }
+  agent any
   stages {
     stage('Build image') {
       steps {
-        sh '''docker.image(\'nginx\').withRun(\'-p 12349:80\') { c ->
-                /* Wait until mysql service is up */
-                sh \'echo "hello"\'
-            } '''
+        appImage = docker.build("-t agustintommasi/test-app -f Dockerfile .")
+        app = appImage.run(" -p 10123:80")
       }
     }
 
