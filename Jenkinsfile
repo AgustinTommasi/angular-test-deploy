@@ -17,7 +17,7 @@ pipeline {
          * docker build on the command line */
                     script{
 
-        appImage = docker.build("-t agustintommasi/test-app -f Dockerfile .")
+        appImage = docker.build("-t agustintommasi/test-app -f Dockerfile .").run(" -p 10123:80")
       }
     }
       }
@@ -26,11 +26,11 @@ pipeline {
       steps {
         /* This run the  image; synonymous to
          * docker build on the command line */
-                    script{
+    //                 script{
 
-        app = appImage.run(" -p 10123:80")
+    //     app = appImage.run(" -p 10123:80")
 
-    }
+    // }
     }
     }
 
@@ -38,12 +38,12 @@ pipeline {
       steps {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
-                    script{
+        //             script{
 
-        app.inside {
-            sh 'echo "Tests passed"'
-        }
-        }
+        // app.inside {
+        //     sh 'echo "Tests passed"'
+        // }
+        // }
     }
     }
   }}
